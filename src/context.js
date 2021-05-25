@@ -22,7 +22,7 @@ const RoomContext = React.createContext();
 
         this.setState({
             rooms, featuredRooms, sortedRooms: rooms, loading: false
-        })
+        });
     }
     formatData(dataItems){
         let tempItems = dataItems.map(item =>{
