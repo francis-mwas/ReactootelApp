@@ -56,4 +56,15 @@ const RoomContext = React.createContext();
 
 const RoomConsumer = RoomContext.Consumer;
 
+// using HOC to access context in functional component 
+export function withRoomConsumer(Component){
+    return function(props){
+        return (
+            <RoomConsumer>
+                {value=> <Component {...props} context={value}/>}
+            </RoomConsumer>
+        )
+    }
+}
+
 export { RoomProvider, RoomConsumer, RoomContext };
