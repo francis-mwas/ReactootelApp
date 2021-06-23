@@ -61,14 +61,27 @@ const RoomContext = React.createContext();
     }
 
     handleChange = e =>{
-        const type = e.target.value
-        const name = e.target.name
-        const value = e.target.value
-        console.log(type, name, value);
+        const target = e.target;
+        const value = e.type === 'checked' ? target.checked : target.value;
+        const name = e.target.name;
+
+        this.setState({
+            [name]: value
+        }, this.filterRooms
+        );
     }
-    filterRooms = () =>{
-        console.log("Hello");
+    filterRooms = () =>{ 
+        let { rooms, type, capacity, price, minSize, maxSize, breakfast, pets} = this.state
+
+        let tempRooms = [...rooms];
+        if(type !== 'all'){
+            tempRooms = tempRooms.filter(room => room.type === type)
+        }
+        this.setState({
+            sortedRooms: tempRooms
+        });
     }
+  
 
     render() {
      
