@@ -62,8 +62,8 @@ const RoomContext = React.createContext();
 
     handleChange = e =>{
         const target = e.target;
-        const value = e.type === 'checked' ? target.checked : target.value;
-        const name = e.target.name;
+        const value = target.type === "checkbox" ? target.checked : target.value;
+        const name = target.name;
 
         this.setState({
             [name]: value
@@ -80,15 +80,25 @@ const RoomContext = React.createContext();
         price = parseInt(price);
 
         // filter by type 
-        if(type !== 'all'){
+        if(type !== 'all') {
             tempRooms = tempRooms.filter(room => room.type === type)
         }
         // filter by capacity 
-        if(capacity !==1){
+        if(capacity !==1) {
             tempRooms = tempRooms.filter(room => room.capacity >= capacity);
         }
         // filter by price 
         tempRooms = tempRooms.filter(room => room.price <= price);
+        // filter by size 
+        tempRooms = tempRooms.filter(room => room.size >= minSize && room.size <=maxSize);
+        // filter by breakfast 
+        if (breakfast) {
+            tempRooms = tempRooms.filter(room => room.breakfast === true);
+        }
+        // filter by pets 
+        if (pets) {
+            tempRooms = tempRooms.filter(room => room.pets === true);
+        }
         // change state 
         this.setState({
             sortedRooms: tempRooms
